@@ -1,14 +1,15 @@
-import { Message } from 'ai'
+// chat-types.ts
+import { Message } from 'ai';
 import type { DefaultSession } from '@/node_modules/.pnpm/@auth+core@0.18.4/node_modules/@auth/core/types';
 
 export interface Chat extends Record<string, any> {
-  id: string
-  title: string
-  createdAt: Date
-  userId: string
-  path: string
-  messages: Message[]
-  sharePath?: string
+  id: string;
+  title: string;
+  createdAt: Date;
+  userId: string;
+  path: string;
+  messages: Message[];  // 此处的 Message 已经包含了 "function" 和 "tool"
+  sharePath?: string;
 }
 
 export interface CCDResult extends Record<string, any> {
@@ -59,26 +60,23 @@ export interface CCDTruth extends Record<string, any> {
 export type ServerActionResult<Result> = Promise<
   | Result
   | {
-    error: string
-  }
->
+      error: string;
+    }
+>;
 
 export interface Session {
   user: {
-    id: string
-    // email: string
+    id: string;
+    // email 可根据需要添加
   }
 }
 
 export interface AuthResult {
-  type: string
-  message: string
+  type: string;
+  message: string;
 }
 
 export interface User extends Record<string, any> {
-  id: string
-  // email: string
-  // password: string
-  // userId: string
-  // salt: string
+  id: string;
+  // 可根据需要添加其他字段
 }
