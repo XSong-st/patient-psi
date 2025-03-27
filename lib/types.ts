@@ -1,14 +1,21 @@
-import { Message } from 'ai'
+// chat-types.ts
+
+import { Message as AIMessage } from 'ai';
 import type { DefaultSession } from '@/node_modules/.pnpm/@auth+core@0.18.4/node_modules/@auth/core/types';
 
+// 扩展 Message 类型
+type ExtendedMessage = Omit<AIMessage, "role"> & {
+  role: "function" | "user" | "data" | "system" | "assistant" | "tool";
+};
+
 export interface Chat extends Record<string, any> {
-  id: string
-  title: string
-  createdAt: Date
-  userId: string
-  path: string
-  messages: Message[]
-  sharePath?: string
+  id: string;
+  title: string;
+  createdAt: Date;
+  userId: string;
+  path: string;
+  messages: ExtendedMessage[];  // 使用扩展后的 Message 类型
+  sharePath?: string;
 }
 
 export interface CCDResult extends Record<string, any> {
@@ -59,24 +66,24 @@ export interface CCDTruth extends Record<string, any> {
 export type ServerActionResult<Result> = Promise<
   | Result
   | {
-    error: string
-  }
->
+      error: string;
+    }
+>;
 
 export interface Session {
   user: {
-    id: string
+    id: string;
     // email: string
-  }
+  };
 }
 
 export interface AuthResult {
-  type: string
-  message: string
+  type: string;
+  message: string;
 }
 
 export interface User extends Record<string, any> {
-  id: string
+  id: string;
   // email: string
   // password: string
   // userId: string
